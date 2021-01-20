@@ -29,6 +29,12 @@ public class Specialty implements Serializable {
 	public Specialty() {
 
 	}
+	
+	public Specialty(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
