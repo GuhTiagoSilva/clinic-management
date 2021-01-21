@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +14,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Entity
 @Table(name = "tb_doctor")
+@SQLDelete(sql = "UPDATE tb_doctor SET is_active=false WHERE id=?")
+@Where(clause = "is_active = true")
 public class Doctor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,20 +34,22 @@ public class Doctor implements Serializable {
 	private Long crmNumber;
 
 	private String phoneNumber;
-	
+
 	private String address;
-	
+
 	private String complement;
-	
+
 	private String homeNumber;
-	
+
 	private String neighborhood;
 
 	private String cellphoneNumber;
 
 	private String zipCode;
 
-	@ManyToMany
+	private Boolean isActive;
+
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_doctor_specialty", joinColumns = @JoinColumn(name = "doctor_id"), inverseJoinColumns = @JoinColumn(name = "specialty_id"))
 	private Set<Specialty> specialties = new HashSet<>();
 
@@ -150,6 +158,14 @@ public class Doctor implements Serializable {
 
 	public void setNeighborhood(String neighborhood) {
 		this.neighborhood = neighborhood;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@Override

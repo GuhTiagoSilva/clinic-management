@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.com.gustavo.clinicmanagement.entities.Specialty;
+
 public class SpecialtyDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,8 +14,6 @@ public class SpecialtyDTO implements Serializable {
 	
 	private String name;
 
-	private Set<DoctorDTO> doctors = new HashSet<>();
-	
 	public SpecialtyDTO() {
 
 	}
@@ -22,6 +22,11 @@ public class SpecialtyDTO implements Serializable {
 		super();
 		this.id = id;
 		this.name = name;
+	}
+	
+	public SpecialtyDTO(Specialty entity) {
+		this.id = entity.getId();
+		this.name = entity.getName();
 	}
 
 	public Long getId() {
@@ -39,14 +44,5 @@ public class SpecialtyDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set<DoctorDTO> getDoctors() {
-		return doctors;
-	}
-
-	public void setDoctors(Set<DoctorDTO> doctors) {
-		this.doctors = doctors;
-	}
-	
 	
 }

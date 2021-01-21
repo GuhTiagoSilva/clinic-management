@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DoctorDTO implements Serializable{
+import br.com.gustavo.clinicmanagement.entities.Doctor;
+
+public class DoctorDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 
 	private String name;
@@ -15,23 +17,23 @@ public class DoctorDTO implements Serializable{
 	private Long crmNumber;
 
 	private String phoneNumber;
-	
+
 	private String address;
-	
+
 	private String complement;
-	
+
 	private String homeNumber;
-	
+
 	private String neighborhood;
 
 	private String cellphoneNumber;
 
 	private String zipCode;
-	
+
 	private Set<SpecialtyDTO> specialties = new HashSet<>();
-	
+
 	public DoctorDTO() {
-		
+
 	}
 
 	public DoctorDTO(Long id, String name, Long crmNumber, String phoneNumber, String address, String complement,
@@ -47,6 +49,20 @@ public class DoctorDTO implements Serializable{
 		this.neighborhood = neighborhood;
 		this.cellphoneNumber = cellphoneNumber;
 		this.zipCode = zipCode;
+	}
+
+	public DoctorDTO(Doctor doctor) {
+		this.id = doctor.getId();
+		this.address = doctor.getAddress();
+		this.cellphoneNumber = doctor.getCellphoneNumber();
+		this.complement = doctor.getComplement();
+		this.crmNumber = doctor.getCrmNumber();
+		this.homeNumber = doctor.getHomeNumber();
+		this.name = doctor.getName();
+		this.neighborhood = doctor.getNeighborhood();
+		this.phoneNumber = doctor.getPhoneNumber();
+		this.zipCode = doctor.getZipCode();
+		doctor.getSpecialties().forEach(specialty -> this.getSpecialties().add(new SpecialtyDTO(specialty)));
 	}
 
 	public Long getId() {
@@ -128,15 +144,13 @@ public class DoctorDTO implements Serializable{
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	
+
 	public Set<SpecialtyDTO> getSpecialties() {
 		return specialties;
 	}
-	
+
 	public void setSpecialties(Set<SpecialtyDTO> specialties) {
 		this.specialties = specialties;
 	}
-	
-	
 
 }
