@@ -1,12 +1,12 @@
 import React from 'react';
+import Routes from './Routes';
+import './core/assets/styles/custom.scss';
+import './app.scss';
 
-
-function App() {
-  return (
-    <div className="App">
-     <h1>Hello World</h1>
-    </div>
-  );
+const App = () => {
+    return (
+        <Routes/>
+    );
 }
 
 export default App;
