@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.gustavo.clinicmanagement.dto.DoctorDTO;
-import br.com.gustavo.clinicmanagement.service.DoctorService;
+import br.com.gustavo.clinicmanagement.services.DoctorService;
 
 @RestController
 @RequestMapping(value = "/doctors")

@@ -1,8 +1,11 @@
-package br.com.gustavo.clinicmanagement.service;
+package br.com.gustavo.clinicmanagement.services;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,43 +15,53 @@ import br.com.gustavo.clinicmanagement.entities.Doctor;
 import br.com.gustavo.clinicmanagement.entities.Specialty;
 import br.com.gustavo.clinicmanagement.repositories.DoctorRepository;
 import br.com.gustavo.clinicmanagement.repositories.SpecialtyRepository;
+import br.com.gustavo.clinicmanagement.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class DoctorService {
 
 	@Autowired
 	private DoctorRepository repository;
-	
+
 	@Autowired
 	private SpecialtyRepository specialtyRepository;
-	
+
 	@Transactional
-	public DoctorDTO insert (DoctorDTO dto) {
+	public DoctorDTO insert(DoctorDTO dto) {
 		Doctor entity = new Doctor();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new DoctorDTO(entity);
 	}
-	
+
 	@Transactional
-	public DoctorDTO update (Long id,DoctorDTO dto) {
-		Doctor entity = repository.getOne(id);
-		copyDtoToEntity(dto, entity);
-		entity = repository.save(entity);
+	public DoctorDTO update(Long id, DoctorDTO dto) {
+		try {
+			Doctor entity = repository.getOne(id);
+			copyDtoToEntity(dto, entity);
+			entity = repository.save(entity);
+			return new DoctorDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Entity Not Found");
+		}
+	}
+
+	@Transactional(readOnly = true)
+	public DoctorDTO findById(Long id) {
+		Optional<Doctor> doctor = repository.findById(id);
+		Doctor entity = doctor.orElseThrow(() -> new ResourceNotFoundException("Id Not Found: " + id));
 		return new DoctorDTO(entity);
 	}
-	
-	@Transactional(readOnly = true)
-	public DoctorDTO findById (Long id) {
-		Optional<Doctor> doctor = repository.findById(id);
-		Doctor entity = doctor.get();
-		return new DoctorDTO (entity);
+
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Entity Not Found");
+		}
+
 	}
-	
-	public void delete (Long id) {
-		repository.deleteById(id);
-	}
-	
+
 	private void copyDtoToEntity(DoctorDTO dto, Doctor entity) {
 		entity.setAddress(dto.getAddress());
 		entity.setCellphoneNumber(dto.getCellphoneNumber());
@@ -60,15 +73,14 @@ public class DoctorService {
 		entity.setZipCode(dto.getZipCode());
 		entity.setPhoneNumber(dto.getPhoneNumber());
 		entity.setIsActive(true);
-		
+
 		entity.getSpecialties().clear();
-		
-		for(SpecialtyDTO specialtyDTO: dto.getSpecialties()) {
+
+		for (SpecialtyDTO specialtyDTO : dto.getSpecialties()) {
 			Optional<Specialty> specialty = specialtyRepository.findById(specialtyDTO.getId());
 			Specialty specialtyEntity = specialty.get();
 			entity.getSpecialties().add(specialtyEntity);
 		}
 	}
-	
-	
+
 }
