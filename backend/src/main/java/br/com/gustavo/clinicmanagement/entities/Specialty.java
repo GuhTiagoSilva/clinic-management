@@ -10,9 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "tb_specialty")
+@SQLDelete(sql = "UPDATE tb_specialty SET is_active=false WHERE id=?")
+@Where(clause = "is_active = true")
 public class Specialty implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,19 +27,23 @@ public class Specialty implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank(message = "Name is required")
 	private String name;
 
 	@ManyToMany(mappedBy = "specialties")
 	private Set<Doctor> doctors = new HashSet<>();
 
+	private Boolean isActive;
+
 	public Specialty() {
 
 	}
-	
-	public Specialty(Long id, String name) {
+
+	public Specialty(Long id, String name, Boolean isActive) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.isActive = isActive;
 	}
 
 	public Long getId() {
@@ -58,6 +68,14 @@ public class Specialty implements Serializable {
 
 	public void setDoctors(Set<Doctor> doctors) {
 		this.doctors = doctors;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@Override

@@ -13,9 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_doctor")
@@ -29,28 +33,45 @@ public class Doctor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
+	@NotBlank(message = "Name is required")
 	private String name;
 
+	@NotNull
+	@NotBlank(message = "CRM Number is required")
 	private Long crmNumber;
 
+	@NotNull
+	@NotBlank(message = "Phone number is required")
 	private String phoneNumber;
 
+	@NotNull
+	@NotBlank(message = "Address is required")
 	private String address;
 
 	private String complement;
 
+	@NotNull
+	@NotBlank(message = "Home number is required")
 	private String homeNumber;
 
+	@NotNull
+	@NotBlank(message = "Neighborhood is required")
 	private String neighborhood;
 
+	@NotNull
+	@NotBlank(message = "CellPhone is required")
 	private String cellphoneNumber;
 
+	@NotNull
+	@NotBlank(message = "Zip code is required")
 	private String zipCode;
 
 	private Boolean isActive;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_doctor_specialty", joinColumns = @JoinColumn(name = "doctor_id"), inverseJoinColumns = @JoinColumn(name = "specialty_id"))
+	@NotNull
 	private Set<Specialty> specialties = new HashSet<>();
 
 	public Doctor() {

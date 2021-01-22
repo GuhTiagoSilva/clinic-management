@@ -6,6 +6,8 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,12 @@ public class DoctorService {
 
 	@Autowired
 	private SpecialtyRepository specialtyRepository;
+
+	@Transactional(readOnly = true)
+	public Page<DoctorDTO> findAllPaged(PageRequest pageRequest) {
+		Page<Doctor> list = repository.findAll(pageRequest);
+		return list.map(x-> new DoctorDTO(x));
+	}
 
 	@Transactional
 	public DoctorDTO insert(DoctorDTO dto) {
