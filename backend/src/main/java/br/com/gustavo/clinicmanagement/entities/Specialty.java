@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class Specialty implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "Name is required")
+	@Column(name = "nm_specialty")
 	private String name;
 
 	@ManyToMany(mappedBy = "specialties")

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,36 +36,45 @@ public class Doctor implements Serializable {
 
 	@NotNull
 	@NotBlank(message = "Name is required")
+	@Column(name = "nm_doctor")
 	private String name;
 
 	@NotNull
 	@NotBlank(message = "CRM Number is required")
-	private Long crmNumber;
+	@Column(name = "nr_crm")
+	private String crmNumber;
 
 	@NotNull
 	@NotBlank(message = "Phone number is required")
+	@Column(name = "nr_phone")
 	private String phoneNumber;
 
 	@NotNull
 	@NotBlank(message = "Address is required")
+	@Column(name = "ds_address")
 	private String address;
 
+	@Column(name = "ds_complement")
 	private String complement;
 
 	@NotNull
 	@NotBlank(message = "Home number is required")
-	private String homeNumber;
+	@Column(name = "nr_home")
+	private Integer homeNumber;
 
 	@NotNull
 	@NotBlank(message = "Neighborhood is required")
+	@Column(name = "ds_neighborhood")
 	private String neighborhood;
 
 	@NotNull
 	@NotBlank(message = "CellPhone is required")
+	@Column(name = "nr_cellphone")
 	private String cellphoneNumber;
 
 	@NotNull
 	@NotBlank(message = "Zip code is required")
+	@Column(name = "nr_zipcode")
 	private String zipCode;
 
 	private Boolean isActive;
@@ -78,8 +88,8 @@ public class Doctor implements Serializable {
 
 	}
 
-	public Doctor(Long id, String name, Long crmNumber, String phoneNumber, String address, String complement,
-			String homeNumber, String neighborhood, String cellphoneNumber, String zipCode) {
+	public Doctor(Long id, String name, String crmNumber, String phoneNumber, String address, String complement,
+			Integer homeNumber, String neighborhood, String cellphoneNumber, String zipCode) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -109,11 +119,11 @@ public class Doctor implements Serializable {
 		this.name = name;
 	}
 
-	public Long getCrmNumber() {
+	public String getCrmNumber() {
 		return crmNumber;
 	}
 
-	public void setCrmNumber(Long crmNumber) {
+	public void setCrmNumber(String crmNumber) {
 		this.crmNumber = crmNumber;
 	}
 
@@ -165,11 +175,11 @@ public class Doctor implements Serializable {
 		this.complement = complement;
 	}
 
-	public String getHomeNumber() {
+	public Integer getHomeNumber() {
 		return homeNumber;
 	}
 
-	public void setHomeNumber(String homeNumber) {
+	public void setHomeNumber(Integer homeNumber) {
 		this.homeNumber = homeNumber;
 	}
 

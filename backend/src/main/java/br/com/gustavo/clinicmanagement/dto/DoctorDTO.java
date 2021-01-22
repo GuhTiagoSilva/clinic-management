@@ -14,7 +14,7 @@ public class DoctorDTO implements Serializable {
 
 	private String name;
 
-	private Long crmNumber;
+	private String crmNumber;
 
 	private String phoneNumber;
 
@@ -22,7 +22,7 @@ public class DoctorDTO implements Serializable {
 
 	private String complement;
 
-	private String homeNumber;
+	private Integer homeNumber;
 
 	private String neighborhood;
 
@@ -36,8 +36,8 @@ public class DoctorDTO implements Serializable {
 
 	}
 
-	public DoctorDTO(Long id, String name, Long crmNumber, String phoneNumber, String address, String complement,
-			String homeNumber, String neighborhood, String cellphoneNumber, String zipCode) {
+	public DoctorDTO(Long id, String name, String crmNumber, String phoneNumber, String address, String complement,
+			Integer homeNumber, String neighborhood, String cellphoneNumber, String zipCode) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -81,11 +81,11 @@ public class DoctorDTO implements Serializable {
 		this.name = name;
 	}
 
-	public Long getCrmNumber() {
+	public String getCrmNumber() {
 		return crmNumber;
 	}
 
-	public void setCrmNumber(Long crmNumber) {
+	public void setCrmNumber(String crmNumber) {
 		this.crmNumber = crmNumber;
 	}
 
@@ -113,11 +113,11 @@ public class DoctorDTO implements Serializable {
 		this.complement = complement;
 	}
 
-	public String getHomeNumber() {
+	public Integer getHomeNumber() {
 		return homeNumber;
 	}
 
-	public void setHomeNumber(String homeNumber) {
+	public void setHomeNumber(Integer homeNumber) {
 		this.homeNumber = homeNumber;
 	}
 
