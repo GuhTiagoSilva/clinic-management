@@ -16,7 +16,7 @@ const Home = () => {
                         Ajudaremos você a gerenciar melhor <br />  os médicos dentro de seu hospital.
                 </p>
 
-                    <Link to="/users">
+                    <Link to="/doctors">
                         <ButtonIcon text="inicie agora o cadastro" />
                     </Link>
 

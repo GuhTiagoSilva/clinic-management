@@ -1,0 +1,26 @@
+.doctors-container{
+    margin-top: 28px;
+    padding: 0 40px 50px 40px;
+}
+
+.doctor-title {
+   font-family: Open Sans;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 24px;
+   line-height: 33px;
+   letter-spacing: -0.015em;
+}
+
+.doctors-list{
+    margin-top: 43px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: 33px 20px;
+    justify-content: space-between;
+}
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+}

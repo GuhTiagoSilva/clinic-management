@@ -18,8 +18,8 @@ const Navbar = () => {
                         <li>HOME</li>
                     </NavLink>
 
-                    <NavLink to="/users">
-                        <li>USUÁRIOS</li>
+                    <NavLink to="/doctors">
+                        <li>MÉDICOS</li>
                     </NavLink>
 
                     <NavLink to="/admin" exact>
